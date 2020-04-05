@@ -20,7 +20,6 @@ public class WriteIntoDB implements Constante {
         Connection conn = DriverManager.getConnection(dbURL, benutzer, passwort);
         System.out.println(conn);
 
-        Statement stmt = conn.createStatement();
 
 
         PreparedStatement pstmt = conn.prepareStatement(sql);

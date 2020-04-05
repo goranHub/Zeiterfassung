@@ -44,10 +44,10 @@ public class Person extends Observable {
         return id;
     }
 
-    public void setName(String fristName, String lastName) {
+    public void setPerson(String fristName, String lastName, Timestamp timestamp) {
 
 
-        Person person = new Person(fristName,lastName, new Timestamp(System.currentTimeMillis()));
+        Person person = new Person(fristName,lastName,timestamp);
         setChanged();
         notifyObservers(person);
     }
