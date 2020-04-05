@@ -1,11 +1,16 @@
 package gui;
 
+import data.WriteIntoDB;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import logic.PersonObserverForDB;
 import logic.*;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import static gui.MyScreen.*;
 
@@ -20,18 +25,27 @@ public class Main extends Application {
         txtArr[1]= secondNameInput;
 
         Button btnAdd = new Button("add");
-        Button btnSaveToFile = new Button("save to file");
         Button btnSaveToDB = new Button("save to db");
+        Button btnSaveToFile = new Button("save to file");
+
         Button[] btnArr={btnAdd,btnSaveToDB,btnSaveToFile};
 
 
 
-        PersonObserverForDB personObserver = new PersonObserverForDB();
-        Person person = new Person("", "");
+        PersonObserverForDB personObserverForDB = new PersonObserverForDB();
+        Person person = new Person("","", new Timestamp(System.currentTimeMillis()));
+
+        person.addObserver(personObserverForDB);
+        //person.setName(first,last);
 
 
 
-        primaryStage.setScene(makeScene( btnArr, person, personObserver, txtArr));
+
+
+        //WriteIntoDB.writeIntoDB( personObserverForDB.getPerson() );
+
+
+        primaryStage.setScene(makeScene( btnArr, person, personObserverForDB, txtArr));
         primaryStage.show();
 
 

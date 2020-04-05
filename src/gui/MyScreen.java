@@ -1,22 +1,23 @@
 package gui;
 
+import data.WriteIntoDB;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.*;
 import javafx.scene.layout.VBox;
 import logic.*;
 
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
 
 public class MyScreen {
 
+    static String first;
+    static String last;
+    static int i =0;
 
-
-
-
-
-
-    public static Scene makeScene(Button[] btnArr, Person person, PersonObserverForDB personObserver, TextField[] txtArr){
+    public static Scene makeScene(Button[] btnArr,Person person, PersonObserverForDB personObserverForDB, TextField[] txtArr){
 
         VBox vBox = new VBox();
 
@@ -29,11 +30,23 @@ public class MyScreen {
 
 
         btnArr[0].setOnAction(e -> {
-            String first =  txtArr[0].getText();
-            String last  =  txtArr[1].getText();
-
-            person.addObserver(personObserver);
+            first =  txtArr[0].getText();
+            last  =  txtArr[1].getText();
             person.setName(first,last);
+        });
+
+        btnArr[1].setOnAction(e->{
+
+            try {
+                personObserverForDB.getPerson().setId(personObserverForDB.getPerson().getId() +(i++));
+                WriteIntoDB.writeIntoDB(personObserverForDB.getPerson());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            System.out.println(personObserverForDB);
+
+
+
         });
 
 
