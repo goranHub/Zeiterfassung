@@ -18,7 +18,7 @@ public class PersonObserverForDB implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println(((Person)arg).getFristName()+"   " + ((Person)arg).getLastName()+"   "  + ((Person)arg).getTimestamp());
+        //System.out.println(((Person)arg).getFristName()+"   " + ((Person)arg).getLastName()+"   "  + ((Person)arg).getTimestamp());
         this.person = ((Person)arg);
     }
 

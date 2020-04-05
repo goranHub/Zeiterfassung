@@ -1,12 +1,19 @@
 package data;
 
 
+import logic.Person;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ReadAllFromDB  implements Constante{
+public class ReadAllFromDB implements Constante {
 
 
-    public static void main()throws SQLException {
+    static String firstName;
+    static String lastName;
+
+    public static List<Person> main() throws SQLException {
 
 
         Connection conn;
@@ -15,30 +22,29 @@ public class ReadAllFromDB  implements Constante{
 
         //Hülle für SQL-Statemen aufbauen
 
-            conn = DriverManager.getConnection(dbURL, benutzer, passwort);
-            System.out.println(conn);
-            stmt = conn.createStatement();
-            System.out.println(stmt);
-            String sql = "SELECT * FROM person";//
-            ResultSet rs = stmt.executeQuery(sql);//executeQuery schickt eine Anfrage an die Datenbank
+        conn = DriverManager.getConnection(dbURL, benutzer, passwort);
 
-            System.out.println(rs);
-            while (rs.next()) {
+        stmt = conn.createStatement();
 
-                int personID = rs.getInt("personid");
-                String firstName = rs.getString("first");
-                String lastName = rs.getString("last");
-                Timestamp stempel = rs.getTimestamp("time");
-
-                System.out.println("Person ID: " +
-                        personID + " FirstName " +
-                        firstName + " LastName " +
-                        lastName + "." +
-                        stempel + "stempel");
-            }
+        String sql = "SELECT * FROM person";//
+        ResultSet rs = stmt.executeQuery(sql);//executeQuery schickt eine Anfrage an die Datenbank
 
 
+        List<Person> peopleList = new ArrayList<>();
 
 
+        while (rs.next()) {
+
+            int personID = rs.getInt("personid");
+            firstName = rs.getString("first");
+            lastName = rs.getString("last");
+            Timestamp stempel = rs.getTimestamp("time");
+
+            peopleList.add(new Person(firstName, lastName, stempel));
+
+        }
+
+        return peopleList;
     }
+
 }

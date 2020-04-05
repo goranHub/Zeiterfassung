@@ -12,20 +12,16 @@ public class WriteIntoDB implements Constante {
 
 
 
-
-        //String sql = "INSERT INTO person(personid,first,last,time) VALUES ('"+person.getId()+"','"+person.getFristName()+"','"+person.getLastName()+"','"+person.getTimestamp()+"')";
-
-
         String sql = "INSERT INTO person(personid,first,last,time) VALUES(?,?,?,?)";
         Connection conn = DriverManager.getConnection(dbURL, benutzer, passwort);
-        System.out.println(conn);
+
 
 
 
         PreparedStatement pstmt = conn.prepareStatement(sql);
 
 
-        //pstmt.setInt(1,  person.getId());
+
         pstmt.setInt(1, person.getId());
         pstmt.setString(2, person.getFristName());
 

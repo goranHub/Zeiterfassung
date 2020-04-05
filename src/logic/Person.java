@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 
 public class Person extends Observable {
@@ -15,7 +16,7 @@ public class Person extends Observable {
 
 
 
-    public Person( String fristName, String lastName, Timestamp timestamp) {
+    public Person(String fristName, String lastName, Timestamp timestamp) {
         this.fristName = fristName;
         this.lastName = lastName;
         this.timestamp = timestamp;
@@ -47,13 +48,29 @@ public class Person extends Observable {
     public void setPerson(String fristName, String lastName, Timestamp timestamp) {
 
 
-        Person person = new Person(fristName,lastName,timestamp);
+
+
+
+        Person person = new Person( fristName,lastName,timestamp);
         setChanged();
         notifyObservers(person);
     }
 
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "fristName='" + fristName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", timestamp=" + timestamp +
+                ", id=" + id +
+                '}';
+    }
 
 
 
-}
+
+    }
+
+
+

@@ -25,12 +25,12 @@ public class Main extends Application {
         txtArr[1]= secondNameInput;
 
         //buttons
-        Button btnAdd = new Button("add");
-        Button btnSaveToDB = new Button("save to db");
+        Button btnEntry = new Button("Entry");
+        Button btnExit = new Button("Exit");
         Button btnReadFromDB = new Button("readFromDB");
         Button btnRemoveFromDB = new Button("remove all from DB");
-        Button btnSaveToFile = new Button("save to file");
-        Button[] btnArr={btnAdd,btnSaveToDB,btnReadFromDB,btnRemoveFromDB,btnSaveToFile};
+
+        Button[] btnArr={btnEntry,btnExit,btnReadFromDB,btnRemoveFromDB};
 
 
         PersonObserverForDB personObserverForDB = new PersonObserverForDB();
