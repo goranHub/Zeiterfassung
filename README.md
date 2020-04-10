@@ -1,2 +1,2 @@
 # Zeiterfassung
-Mit datenbank anbindung und MVC Pattern
+Mit datenbank anbindung und Observer design pattern
