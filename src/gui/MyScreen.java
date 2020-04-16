@@ -3,6 +3,9 @@ package gui;
 import data.DeleteFromDB;
 import data.ReadAllFromDB;
 import data.WriteIntoDB;
+import data.dataStructure.Queues;
+import data.dataStructure.StackArray;
+import data.dataStructure.StackArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -22,10 +25,11 @@ public class MyScreen {
     static String last;
     static int i = 0;
 
-    public static Scene makeScene(Button[] btnArr, Person person, PersonObserverForDB personObserverForDB, TextField[] txtArr) {
+    public static Scene makeScene(Button[] btnArr, Person person, PersonObserverForDB personObserverForDB, TextField[] txtArr, Queues queue) {
 
         VBox root = new VBox();
-
+        StackArray stackArray = new StackArray();
+        StackArrayList stackArrayList = new StackArrayList();
 
         root.getChildren().addAll(txtArr);
 
@@ -39,6 +43,10 @@ public class MyScreen {
         root.getChildren().add(btnArr[2]);
         //remove all from DB
         root.getChildren().add(btnArr[3]);
+        //push into stack array
+        root.getChildren().add((btnArr[4]));
+        //pop to stack array
+        root.getChildren().add((btnArr[5]));
 
 
         btnArr[0].setOnAction(e -> {
@@ -49,10 +57,9 @@ public class MyScreen {
 
                 System.out.println(ReadAllFromDB.main()
                         .stream()
-                        .filter(s->s.getFristName().equals(first))
-                        .filter(s->s.getLastName().equals(last))
+                        .filter(s -> s.getFristName().equals(first))
+                        .filter(s -> s.getLastName().equals(last))
                         .collect(Collectors.toList()));
-
 
 
             } catch (SQLException ex) {
@@ -65,7 +72,6 @@ public class MyScreen {
             txtArr[0].clear();
             txtArr[1].clear();
 
-
             //write in db
             try {
                 //id++
@@ -74,7 +80,6 @@ public class MyScreen {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-
         });
 
 
@@ -84,17 +89,13 @@ public class MyScreen {
             try {
                 peopleList = ReadAllFromDB.main();
 
-                for(Person person1 :peopleList){
+                for (Person person1 : peopleList) {
                     first = txtArr[0].getText();
                     last = txtArr[1].getText();
-
-
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-             catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-
         });
 
 
@@ -111,14 +112,14 @@ public class MyScreen {
             }
         });
 
+
         //remove all
         btnArr[3].setOnAction(e -> {
             try {
                 DeleteFromDB.main();
-                if(ReadAllFromDB.main().size() == 0){
+                if (ReadAllFromDB.main().size() == 0) {
                     System.out.println("is empty");
-                }else
-                {
+                } else {
                     System.out.println("its not empty");
                 }
             } catch (SQLException ex) {
@@ -127,9 +128,39 @@ public class MyScreen {
         });
 
 
+        btnArr[4].setOnAction(e -> {
+            first = txtArr[0].getText();
+            last = txtArr[1].getText();
+            txtArr[0].clear();
+            txtArr[1].clear();
+
+
+            Person personDS = new Person(first, last, new Timestamp(System.currentTimeMillis()));
+
+            stackArray.push(personDS);
+            stackArrayList.push(personDS);
+            queue.insert(personDS);
+
+            System.out.println("");
+        });
+
+
+        btnArr[5].setOnAction(e -> {
+            stackArray.pop();
+            System.out.println(stackArray.toString());
+            stackArrayList.pop();
+            System.out.println(stackArrayList.toString());
+            queue.remove();
+            System.out.println(queue.toString());
+
+        });
+
+
         Scene scene = new Scene(root, 400, 350);
         return scene;
     }
+
+
 }
 
 

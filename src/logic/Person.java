@@ -9,11 +9,10 @@ import java.util.Observable;
 
 public class Person extends Observable {
 
-    String fristName="";
-    String lastName="";
+    String fristName = "";
+    String lastName = "";
     Timestamp timestamp;
     int id;
-
 
 
     public Person(String fristName, String lastName, Timestamp timestamp) {
@@ -27,15 +26,12 @@ public class Person extends Observable {
     public void setId(int id) {
         this.id = id;
     }
-
     public Timestamp getTimestamp() {
         return timestamp;
     }
-
     public String getFristName() {
         return fristName;
     }
-
     public String getLastName() {
         return lastName;
 
@@ -46,12 +42,7 @@ public class Person extends Observable {
     }
 
     public void setPerson(String fristName, String lastName, Timestamp timestamp) {
-
-
-
-
-
-        Person person = new Person( fristName,lastName,timestamp);
+        Person person = new Person(fristName, lastName, timestamp);
         setChanged();
         notifyObservers(person);
     }
@@ -67,10 +58,7 @@ public class Person extends Observable {
                 '}';
     }
 
-
-
-
-    }
+}
 
 
 
